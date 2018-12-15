@@ -6,4 +6,7 @@ workflow "Publish to Surge.sh" {
 action "docker://jekyll/jekyll" {
   uses = "docker://jekyll/jekyll"
   runs = "jekyll build"
+  env = {
+    JEKYLL_DATA_DIR = "$GITHUB_WORKSPACE"
+  }
 }
