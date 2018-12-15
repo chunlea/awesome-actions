@@ -7,6 +7,6 @@ action "docker://jekyll/jekyll" {
   uses = "docker://jekyll/jekyll"
   runs = "jekyll build"
   env = {
-    JEKYLL_DATA_DIR = "$GITHUB_WORKSPACE"
+    JEKYLL_DATA_DIR = "/github/workspace"
   }
 }
