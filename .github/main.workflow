@@ -16,4 +16,7 @@ action "./.github/actions/surge" {
   needs = ["docker://jekyll/jekyll"]
   runs = "surge _site awesome-actions.surge.sh --token $SURGE_TOKEN"
   secrets = ["SURGE_TOKEN"]
+  env = {
+    SURGE_LOGIN = "ichunlea@me.com"
+  }
 }
