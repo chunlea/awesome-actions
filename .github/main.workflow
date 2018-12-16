@@ -1,20 +1,23 @@
 workflow "Publish to Surge.sh" {
   on = "push"
-  resolves = ["./.github/actions/surge"]
+  resolves = ["Publish to awesome-actions.surge.sh"]
 }
 
-action "docker://jekyll/jekyll" {
+action "Filters for GitHub Actions" {
+  uses = "actions/bin/filter@e96fd9a"
+  args = "branch master"
+}
+
+action "Build static website" {
   uses = "docker://jekyll/jekyll"
+  needs = ["Filters for GitHub Actions"]
   runs = "jekyll build"
-  env = {
-    JEKYLL_DATA_DIR = "/github/workspace"
-  }
 }
 
-action "./.github/actions/surge" {
+action "Publish to awesome-actions.surge.sh" {
   uses = "./.github/actions/surge"
-  needs = ["docker://jekyll/jekyll"]
-  runs = "surge _site awesome-actions.surge.sh --token $SURGE_TOKEN"
+  needs = ["Build static website"]
+  runs = "surge _site awesome-actions.surge.sh"
   secrets = ["SURGE_TOKEN"]
   env = {
     SURGE_LOGIN = "ichunlea@me.com"
