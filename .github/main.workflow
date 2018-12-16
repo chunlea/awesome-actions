@@ -1,6 +1,6 @@
 workflow "Publish to Surge.sh" {
   on = "push"
-  resolves = ["docker://jekyll/jekyll"]
+  resolves = ["./.github/actions/surge"]
 }
 
 action "docker://jekyll/jekyll" {
@@ -9,4 +9,10 @@ action "docker://jekyll/jekyll" {
   env = {
     JEKYLL_DATA_DIR = "/github/workspace"
   }
+}
+
+action "./.github/actions/surge" {
+  uses = "./.github/actions/surge"
+  needs = ["docker://jekyll/jekyll"]
+  runs = "ll _site"
 }
