@@ -14,5 +14,5 @@ action "docker://jekyll/jekyll" {
 action "./.github/actions/surge" {
   uses = "./.github/actions/surge"
   needs = ["docker://jekyll/jekyll"]
-  runs = "ll _site"
+  runs = "ls -la _site"
 }
