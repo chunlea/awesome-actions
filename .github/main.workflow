@@ -14,5 +14,6 @@ action "docker://jekyll/jekyll" {
 action "./.github/actions/surge" {
   uses = "./.github/actions/surge"
   needs = ["docker://jekyll/jekyll"]
-  runs = "ls -la _site"
+  runs = "surge _site awesome-actions.surge.sh --token $SURGE_TOKEN"
+  secrets = ["SURGE_TOKEN"]
 }
